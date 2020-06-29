@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <title>Tic Tac Toe</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+
+    <link rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+    <style type="text/css">
+    td{
+    width:100px;
+    height: 100px;
+    background:#eeeeee;
+    font-size: 40px;
+    text-align: center;
+    border-radius: 10px ;
+    }
+    table{
+    margin: 20px auto;
+    border-radius: 10px;
+    color: #222831;
+    }
+    body{
+    background:#32e0c4;
+    }
+    button{
+    background-color: #222831;
+    border: none;
+    color: white;
+    text-align: center;
+    display: inline-block;
+    font-size: 20px;
+    margin: 4px 2px;
+    cursor: pointer;
+    padding: 12px 28px;
+    }
+    .text{
+        text-align: center;
+    }
+    
+    </style>
+    </head>
+<body>
+    <center>
+    <h1 class="text">
+        
+     TIC TAC TOE
+        
+    </h1>
+    
+    <table>
+        <tr>
+            <td onclick="markTheBox(this,0,0)"></td>
+            <td onclick="markTheBox(this,0,1)"></td>
+            <td onclick="markTheBox(this,0,2)"></td>
+        </tr>
+        <tr>
+            <td onclick="markTheBox(this,1,0)"></td>
+            <td onclick="markTheBox(this,1,1)"></td>
+            <td onclick="markTheBox(this,1,2)"></td>
+        </tr>
+        <tr>
+            <td onclick="markTheBox(this,2,0)"></td>
+            <td onclick="markTheBox(this,2,1)"></td>
+            <td onclick="markTheBox(this,2,2)"></td>
+        </tr>
+
+        </table>
+        <button onclick="reset()">
+          Reset  
+        </button>
+        <p id="winnerBanner"></p>
+        </center>
+</body>
+<script>
+     var ticTacToe = [
+        ['','',''],
+        ['','',''],
+        ['','','']
+       ];
+
+       var currentPlayer = 'X';
+     
+       var count=0;
+
+     function markTheBox(element,row,col)
+     {
+       if(element.innerHTML == "")
+       {
+         ticTacToe[row][col]=currentPlayer;
+         if(iscurrentPlayerWinner())
+         {
+           document.getElementById("winnerBanner").innerHTML = currentPlayer +  '&nbsp;' + 'Wins!' ;
+           for(let i=0;i<document.querySelectorAll("td").length;i++){
+             document.querySelectorAll("td")[i].setAttribute("onclick","");
+           }
+         }
+         count++;
+         if(count===9 && !iscurrentPlayerWinner()){
+           document.getElementById("winnerBanner").innerHTML = "Draw!";
+         }
+         element.innerHTML = currentPlayer;
+         currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+         }
+      }
+      function iscurrentPlayerWinner()
+      {
+         if((ticTacToe[0][0] === currentPlayer && ticTacToe[0][1] === currentPlayer && ticTacToe[0][2] === currentPlayer) || 
+            (ticTacToe[1][0] === currentPlayer && ticTacToe[1][1] === currentPlayer && ticTacToe[1][2] === currentPlayer) || 
+            (ticTacToe[2][0] === currentPlayer && ticTacToe[2][1] === currentPlayer && ticTacToe[2][2] === currentPlayer) ||
+            (ticTacToe[0][0] === currentPlayer && ticTacToe[1][0] === currentPlayer && ticTacToe[2][0] === currentPlayer) ||
+            (ticTacToe[0][1] === currentPlayer && ticTacToe[1][1] === currentPlayer && ticTacToe[2][1] === currentPlayer) ||
+            (ticTacToe[0][2] === currentPlayer && ticTacToe[1][2] === currentPlayer && ticTacToe[2][2] === currentPlayer) ||
+            (ticTacToe[0][0] === currentPlayer && ticTacToe[1][1] === currentPlayer && ticTacToe[2][2] === currentPlayer) ||
+            (ticTacToe[0][2] === currentPlayer && ticTacToe[1][1] === currentPlayer && ticTacToe[2][0] === currentPlayer))
+            return true;
+       }
+     function reset()
+     {
+        location.reload();
+        count=0;
+       currentPlayer = 'X'
+      }
+  </script>
+</html>
